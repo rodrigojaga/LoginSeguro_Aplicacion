@@ -2,16 +2,47 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/nerologohd4klinkmega"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/nerologohd4klinkmega_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginSeguro"
         tools:targetApi="31">
+        <activity
+            android:name=".productosScanneadosRecycler"
+            android:exported="false" />
+        <activity
+            android:name=".lectorDeCodigoDeBarrasYQR"
+            android:exported="false" />
+        <activity
+            android:name=".nuevaVenta"
+            android:exported="false" />
+        <activity
+            android:name=".listarVentasRecycler"
+            android:exported="false" />
+        <activity
+            android:name=".listarProductosRecycler"
+            android:exported="false" />
+        <activity
+            android:name=".nuevoProducto"
+            android:exported="false" />
+        <activity
+            android:name=".principal"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

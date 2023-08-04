@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "929103843761",
+    "project_id": "loginhd-99647",
+    "storage_bucket": "loginhd-99647.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929103843761:android:ac9c3934a42b8778362d90",
+        "android_client_info": {
+          "package_name": "com.example.loginseguro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929103843761-3jh3r45891728bids4uhhjmvsn4auq8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhpgPKz4WULIB8q0x1F6b4MPrQp6nNWZ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929103843761-3jh3r45891728bids4uhhjmvsn4auq8t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

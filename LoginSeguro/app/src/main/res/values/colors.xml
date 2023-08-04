@@ -27,4 +27,8 @@
     <color name="color_textview">#FFFFFF</color> <!-- Blanco -->
     <color name="color_edittext">#E6E6E6</color> <!-- Gris claro -->
     <color name="color_button">#4CAF50</color> <!-- Verde -->
+    <color name="azulNohe">#2D3D4A</color>
+    <color name="moradoOscuro">#725A7A</color>
+    <color name="moradoPalido">#C56C86</color>
+    <color name="Fosforo">#FF7582</color>
 </resources>

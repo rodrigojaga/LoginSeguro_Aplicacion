@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/color_textview</item>
+        <item name="android:textSize">27dp</item>
+        <item name="android:background">@drawable/boton_style</item>
+    </style>
+
+    <style name="ButtonStyleProductos" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/color_textview</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:background">@drawable/style_productos</item>
+    </style>
+
+    <style name="ButtonStyleScanner" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/color_textview</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:background">@drawable/style_scanner</item>
+    </style>
+
+</resources>

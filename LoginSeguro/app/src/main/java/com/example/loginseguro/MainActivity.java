@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,6 +20,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -37,13 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
     EditText usuario,contrasena;
     Button entrar,creacion;
-    TextView sugerencia;
-    String guardadoUsuario, guardadoContra;
+
 
     private static final String KEY_ALIAS ="my_key_alias12";
 
-    private static String KEY_ALIAS1;
-    static byte[] contrasenaEnByte, usuarioEnByte;
+    private FirebaseAnalytics analytics;
     static byte[] contrasenaEnByteCom, usuarioEnByteCom;
     static byte[] usuarioDB, contrasenaDB;
     String datosEncrip,usuarioEncrip;
@@ -62,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        FirebaseApp.initializeApp(this);
         usuario = findViewById(R.id.usuario);
         contrasena = findViewById(R.id.contrasena);
         entrar = findViewById(R.id.button);
-        creacion = findViewById(R.id.button2);
-        sugerencia = findViewById(R.id.textView);
+        creacion = findViewById(R.id.creacion);
+        analytics = FirebaseAnalytics.getInstance(this);
         databaseHelper = new DatabaseHelper(this);
         database = databaseHelper.getWritableDatabase();
         try {
@@ -87,6 +89,14 @@ public class MainActivity extends AppCompatActivity {
                 if(validada){
                     contrasena.setText("");
                     usuario.setText("");
+                    Bundle bundle = new Bundle();
+                    //lo que se vera en Firebase -
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_ID,"creacion");
+                    //nombre
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Creacion de usuario");
+                    //tipo de contenido del elemento seleccionado
+                    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,"text");
+                    analytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle);
 
                     try {
 
@@ -107,9 +117,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 }else{
-                    Toast.makeText(MainActivity.this,"La contraseña NO cumple con los requisitos",Toast.LENGTH_SHORT).show();
-                    sugerencia.setVisibility(View.VISIBLE);
-                    sugerencia.setText("Agrega \n-Mayusculas\n-Minusculas\n-Numeros\n-Caracteres especiales");
+                    Toast.makeText(MainActivity.this,"La contraseña debe contener Mayusculas, minusculas, Numeros, Caracteres especiales",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -132,8 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 String d = "";
                 String c = "";
                 try {
-                    //contrasenaEnByte = desencriptarDatos(aesKey,erCon);
-                    //usuarioEnByte = desencriptarDatos(aesKey,erUsu);
                     usuarioDB = desencriptarDatos(aesKey,erUsuario);
                     contrasenaDB = desencriptarDatos(aesKey,erContrasena);
                     usuarioEnByteCom = aux.getBytes(StandardCharsets.UTF_8);
@@ -150,7 +157,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (b.equals(a) && d.equals(c)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_ID,"BotonEntrada");
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,"Entrada de usuario");
+                    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,"boolean");
+                    analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
                     Toast.makeText(MainActivity.this, "Bienvenido ", Toast.LENGTH_SHORT).show();
+                    siguiente(v);
                 } else {
                     Toast.makeText(MainActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
                     contador++;
@@ -190,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
             }else{
 
 
-                Toast.makeText(MainActivity.this,"La llave existe",Toast.LENGTH_SHORT).show();
+
                 return keyStore.getKey(KEY_ALIAS,null);
 
 
@@ -290,6 +303,11 @@ public class MainActivity extends AppCompatActivity {
         }catch(Exception e){
             Log.d("DB", e.toString());
         }
+    }
+
+    public void siguiente(View view){
+        Intent siguiente = new Intent(this, principal.class);
+        startActivity(siguiente);
     }
 
 }
